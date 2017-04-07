@@ -1,0 +1,30 @@
+{
+  "name": "quizx_assingment",
+  "version": "1.0.0",
+  "description": "Food Truck Loactor ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RorschachTest/FoodTruckLocator.git"
+  },
+  "keywords": [
+    "maps",
+    "search",
+    "foodTrucks",
+    "database"
+  ],
+  "author": "RihazZahir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RorschachTest/FoodTruckLocator/issues"
+  },
+  "homepage": "https://github.com/RorschachTest/FoodTruckLocator#readme",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2"
+  }
+}
