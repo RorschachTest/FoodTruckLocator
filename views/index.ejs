@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/maps.js"></script>
     <style>
        #map {
         height: 400px;
@@ -8,54 +10,15 @@
        }
     </style>
   </head>
+
   <body>
+
     <h3>Food Truck Locator</h3>
     <input type="text" id="mapsearch" size="50"></input>
+    <input id="get" type="submit" value="Get">
     <div id="map"></div>
-    <script>
-      function initMap() {
-        var roorkee = {lat: 29.862916, lng: 77.896410};
+    
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: roorkee,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        var marker = new google.maps.Marker({
-          position: roorkee,
-          map: map,
-          title: "Hello World",
-          draggable: true
-        });
-
-        var searchBox = new google.maps.places.SearchBox(document.getElementById('mapsearch'));
-
-        google.maps.event.addListener(searchBox, 'places_changed', function(){
-
-          var places = searchBox.getPlaces();
-
-          //bound
-          var bounds = new google.maps.LatLngBounds();
-          var i, places;
-
-          for(i = 0; place = places[i]; i++){
-            bounds.extend(place.geometry.location);
-            marker.setPosition(place.geometry.location);
-          }
-
-          map.fitBounds(bounds);
-          map.setZoom(10);
-        });
-
-        google.maps.event.addListener(marker, 'dragend', function(loc){
-            var lat = marker.getPosition().lat();
-            var lng = marker.getPosition().lng();
-            console.log(lat + ' ' + lng);
-        });
-
-      }
-    </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPPJIvwAbCtudCE37ml0XOSF-yNxPGewc&callback=initMap&libraries=places">
     </script>
