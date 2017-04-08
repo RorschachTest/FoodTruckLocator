@@ -1,15 +1,15 @@
 
 function initMap() {
-  var roorkee = {lat: 29.862916, lng: 77.896410};
+  var mount = {lat: -122.398098613167, lng: 37.7929489528347};
 
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 10,
-    center: roorkee,
+    center: mount,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 
   var marker = new google.maps.Marker({
-    position: roorkee,
+    position: mount,
     map: map,
     title: "Hello World",
     draggable: true

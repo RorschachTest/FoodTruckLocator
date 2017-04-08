@@ -1,6 +1,14 @@
 var express = require('express');
-
+var mongoose = require('mongoose');
 var app = express();
+
+//Connect to database
+mongoose.connect('mongodb://rihazzahir:test@ds157040.mlab.com:57040/foodtrucklocator');
+
+//Create Schema
+var locSchema = new mongoose.Schema({
+	
+});
 
 app.set('view engine', 'ejs');
 app.use('/scripts', express.static('scripts'));
