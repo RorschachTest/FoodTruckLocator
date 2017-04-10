@@ -2,6 +2,11 @@ var express = require('express');
 var mongoose = require('mongoose');
 var app = express();
 
+//set ejs as view engine 
+app.set('view engine', 'ejs');
+//used for static request, maps.js in this case
+app.use('/scripts', express.static('scripts'));
+
 //Connect Database
 mongoose.connect('mongodb://rihazzahir:test@ds157040.mlab.com:57040/testlocator');
 mongoose.Promise = global.Promise;
@@ -16,41 +21,33 @@ var locSchema = new mongoose.Schema({
 	}
 });
 
+//index the schema with '2dsphere'for $geowithin queries
 locSchema.index({'geometry': '2dsphere'});
 
 var Location = mongoose.model('Location', locSchema);
 
-app.set('view engine', 'ejs');
-app.use('/scripts', express.static('scripts'));
-
+//initial get request is on 'localhost:8080' 
 app.get('/', function(req, res){
 	res.render('index');
 });
 
-
+//get request send by ajax is handled here
 app.get('/home', function(req, res){
 	console.log(req.query);
 
+	//query is created 
 	var query = {
 	   	geometry: {
 	      $geoWithin: { $centerSphere: [ [ req.query.lng, req.query.lat ], 0.00313922461 ] }
 	   }
 	};//query for search in 30KM in radian (0.00313922461)
 
+	//query on the db using model Location for above query the response from the db is in docs variable
 	Location.find(query, function(err, docs){
 		if(err) throw err;
 		console.log(docs);
 		res.send(docs);
 	});
 });
-
-// app.get('/txt', function(req, res){
-// 	res.sendFile(__dirname + '/readMe.txt');
-// });
-
-// app.get('/profile/:name', function(req, res){
-// 	var loc = {lat: 32, lng: 20};
-// 	res.render('locator', {person: req.params.name, location: loc});
-// });
 
 app.listen(8080);

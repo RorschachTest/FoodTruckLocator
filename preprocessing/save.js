@@ -15,10 +15,14 @@ var locSchema = new mongoose.Schema({
 	}
 });
 
+//index the schema with 2d geometry for location query in a map
 locSchema.index({'geometry': '2dsphere'});
 
+//create model for above schema
 var Location = mongoose.model('Location', locSchema);
 
+//creates dummy data
+//to add another data change the values and run this file
 var input = {	
 				location: 'Roorkee', 
 				description: 'Snapdeal',
@@ -28,6 +32,7 @@ var input = {
 				}
 			};
 
+//save the input object in the db
 var itemOne = Location(input).save(function(err){
 	if((err)) throw err;
 	console.log('item saved');
