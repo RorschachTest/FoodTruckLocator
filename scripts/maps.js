@@ -1,6 +1,6 @@
 
 function initMap() {
-  var mount = {lat: -122.398098613167, lng: 37.7929489528347};
+  var mount = {lat: 29.858090, lng: 77.885212};
 
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 10,
@@ -34,7 +34,8 @@ function initMap() {
     map.setZoom(10);
   });
 
-  var lat, lng, stg;
+  var truckloc;
+  var lat = 29.858090, lng = 77.885212, stg;
   var contianer = $('div.contianer');
 
   $('input#get').click(function(){
@@ -42,13 +43,29 @@ function initMap() {
     lng = marker.getPosition().lng();
     stg = '/home?lat=' + lat.toString() + '&lng=' + lng.toString();
 
+
     $.ajax({
       type: 'GET',
       url: stg,
+      data: truckloc,
       dataType: 'json',
+      contentType: 'application/json',
       success: function(data){
-        console.log('request get');
-        contianer.append('<h1>Hi There</h1>');
+        console.log('got response');
+
+        console.log(data);
+        contianer.innerHTML = "";
+
+        $.each(data, function(index, item){
+          $.each(item, function(key, value){
+            contianer.append(key + ': ' + value + '<br/>');
+          });
+          contianer.append('<br/><br/>');
+        });
+        // location.reload();
+      },
+      error: function(){
+        alert('error');
       }
     });
   });
